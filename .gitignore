@@ -1,0 +1,11 @@
+# Elixir artifacts
+/_build
+/deps
+/cover
+/doc
+.elixir_ls
+/.fetch
+erl_crash.dump
+*.swp
+*.beam
+/sys_info-*.tar
