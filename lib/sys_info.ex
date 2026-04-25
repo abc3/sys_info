@@ -30,6 +30,25 @@ defmodule SysInfo do
     }
   end
 
+  @doc """
+  Compares SysInfo metrics with native Erlang `:os_mon` metrics.
+  Useful for verifying the difference in accuracy.
+  """
+  @spec compare() :: %{sys_info: map(), native: map()}
+  def compare do
+    # Ensure os_mon is started
+    Application.ensure_all_started(:os_mon)
+
+    %{
+      sys_info: info(),
+      native: %{
+        cpu_avg1: :cpu_sup.avg1(),
+        cpu_util: :cpu_sup.util(),
+        mem_data: :memsup.get_system_memory_data()
+      }
+    }
+  end
+
   @doc "Returns current CPU usage percentage."
   defdelegate cpu_usage(), to: @adapter
 
